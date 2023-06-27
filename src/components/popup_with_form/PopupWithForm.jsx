@@ -5,6 +5,8 @@ export default function PopupWithForm({
   children,
   isOpen,
   onClose,
+  onSubmit,
+  isLoad,
 }) {
   return (
     <div className={`popup popup_type_${name} ${isOpen && "popup_opened"}`}>
@@ -20,11 +22,18 @@ export default function PopupWithForm({
           name={name}
           method="post"
           noValidate=""
+          onSubmit={onSubmit}
         >
-          <h2 className="popup__title">{title}</h2>
+          <h2
+            className={`popup__title ${
+              name === "delete-card" ? "popup__title_delete-card" : ""
+            }`}
+          >
+            {title}
+          </h2>
           {children}
           <button type="submit" className="popup__submit-button">
-            {titleButton || "Сохранить"}
+            {isLoad ? "Сохранение..." : titleButton || "Сохранить"}
           </button>
         </form>
       </div>

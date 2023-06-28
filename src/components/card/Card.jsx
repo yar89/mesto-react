@@ -2,7 +2,7 @@ import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import CardLikeButton from "../card_like_button/CardLikeButton";
 
-export default function Card({ card, onCardClick, onDelete }) {
+export default function Card({ card, onCardClick, onDelete, onCardLike }) {
   const currentUser = useContext(CurrentUserContext);
 
   return (
@@ -25,9 +25,9 @@ export default function Card({ card, onCardClick, onDelete }) {
         <h2 className="card__title">{card.name}</h2>
         <div className="card__like-group">
           <CardLikeButton
-            likes={card.likes}
             myid={currentUser._id}
-            cardid={card._id}
+            card={card}
+            onCardLike={onCardLike}
           />
         </div>
       </div>

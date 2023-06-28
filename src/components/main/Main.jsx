@@ -8,6 +8,7 @@ export default function Main({
   onEditAvatar,
   onCardClick,
   onDelete,
+  onCardLike,
   cards,
 }) {
   const currentUser = useContext(CurrentUserContext);
@@ -47,12 +48,13 @@ export default function Main({
       </section>
       <section className="cards">
         <ul className="cards__list">
-          {cards.map((card, id) => (
+          {cards.map((card) => (
             <Card
-              key={id}
+              key={card._id}
               card={card}
               onCardClick={onCardClick}
               onDelete={onDelete}
+              onCardLike={onCardLike}
             />
           ))}
         </ul>

@@ -27,6 +27,25 @@ function App() {
   const [cards, setCards] = useState([]);
   const [deleteCardId, setDeleteCardId] = useState("");
 
+  function handleCardLike(card) {
+    
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    
+    if (isLiked) {
+      api.deleteLikeCard(card._id)
+        .then((res) => {
+          setCards(state => state.map((c) => c._id === card._id ? res : c))
+        })
+        .catch((err) => console.error(`Ошибка ${err}`));
+    } else {
+      api.putLikeCard(card._id)
+        .then((res) => {
+          setCards(state => state.map((c) => c._id === card._id ? res : c))
+        })
+        .catch((err) => console.error(`Ошибка ${err}`));
+    }
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -138,6 +157,7 @@ function App() {
           onEditAvatar={handleEditAvatarClick}
           onCardClick={handleCardClick}
           onDelete={handleDeletePopupClick}
+          onCardLike={handleCardLike}
           cards={cards}
         />
 
